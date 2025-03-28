@@ -55,6 +55,7 @@ function rotate(matrix) {
   return matrix.map((row, i) => row.map((_, j) => matrix[matrix.length - 1 - j][i]));
 }
 
+
 function isValidMove(matrix, row, col) {
   return matrix.every((r, i) => r.every((cell, j) =>
     !cell || (col + j >= 0 && col + j < playfield[0].length && row + i < playfield.length && !playfield[row + i][col + j])

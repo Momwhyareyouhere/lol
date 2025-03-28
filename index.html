@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Apple Maps with Directions</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Maps Navigation">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        button {
-            padding: 20px;
-            font-size: 24px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Configuration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    a {
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    a:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <button onclick="openAppleMapsWithDirections()">Navigate to Makartstrasse 12</button>
-
-    <script>
-        function openAppleMapsWithDirections() {
-            const address = "Makartstrasse 12";
-            const url = `maps:0,0?q=${encodeURIComponent(address)}`;
-            window.location.href = url;
-        }
-    </script>
+  <div class="container">
+    <h1>Click the Button to Download Configuration</h1>
+    <a href="apple-maps-config.mobileconfig" download="apple-maps-config.mobileconfig">Download Configuration</a>
+  </div>
 </body>
 </html>

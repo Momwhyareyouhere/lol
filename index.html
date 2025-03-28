@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Maps</title>
+    <title>Open Apple Maps with Directions</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Open Maps Example">
+    <meta name="apple-mobile-web-app-title" content="Maps Navigation">
     <style>
         body {
             display: flex;
@@ -31,11 +31,13 @@
     </style>
 </head>
 <body>
-    <button onclick="openAppleMaps()">Open Apple Maps</button>
+    <button onclick="openAppleMapsWithDirections()">Navigate to Makartstrasse 12</button>
 
     <script>
-        function openAppleMaps() {
-            window.location.href = "maps:";
+        function openAppleMapsWithDirections() {
+            const address = "Makartstrasse 12";
+            const url = `maps:0,0?q=${encodeURIComponent(address)}`;
+            window.location.href = url;
         }
     </script>
 </body>

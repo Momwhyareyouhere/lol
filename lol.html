@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris with Controller</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        canvas { background: black; display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <h1>Tetris (Controller Supported)</h1>
+    <canvas id="tetris" width="300" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById("tetris");
+        const ctx = canvas.getContext("2d");
+        const ROWS = 20, COLS = 10, SIZE = 30;
+        const board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        const colors = ["black", "red", "blue", "green", "yellow", "purple", "orange", "cyan"];
+        let gamepadIndex = null;
+        
+        function drawBoard() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            board.forEach((row, y) => row.forEach((val, x) => {
+                ctx.fillStyle = colors[val];
+                ctx.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
+                ctx.strokeRect(x * SIZE, y * SIZE, SIZE, SIZE);
+            }));
+        }
+        
+        function updateGamepad() {
+            const gamepads = navigator.getGamepads();
+            if (gamepads[gamepadIndex]) {
+                const gp = gamepads[gamepadIndex];
+                if (gp.buttons[14].pressed) move(-1); // Left D-Pad
+                if (gp.buttons[15].pressed) move(1);  // Right D-Pad
+                if (gp.buttons[0].pressed) rotate();  // A Button
+                if (gp.buttons[13].pressed) drop();   // Down D-Pad
+            }
+            requestAnimationFrame(updateGamepad);
+        }
+        
+        function move(dir) {
+            console.log("Move:", dir);
+        }
+        
+        function rotate() {
+            console.log("Rotate");
+        }
+        
+        function drop() {
+            console.log("Drop");
+        }
+        
+        window.addEventListener("gamepadconnected", (e) => {
+            gamepadIndex = e.gamepad.index;
+            console.log("Gamepad connected:", e.gamepad.id);
+            requestAnimationFrame(updateGamepad);
+        });
+        
+        drawBoard();
+    </script>
+</body>
+</html>

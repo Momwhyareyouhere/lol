@@ -7,14 +7,17 @@
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
         canvas { background: black; display: block; margin: auto; }
+        #status { margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
     <h1>Tetris (Controller Supported)</h1>
+    <p id="status">No controller detected</p>
     <canvas id="tetris" width="300" height="600"></canvas>
     <script>
         const canvas = document.getElementById("tetris");
         const ctx = canvas.getContext("2d");
+        const statusText = document.getElementById("status");
         const ROWS = 20, COLS = 10, SIZE = 30;
         const board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
         const colors = ["black", "red", "blue", "green", "yellow", "purple", "orange", "cyan"];
@@ -29,14 +32,26 @@
             }));
         }
         
-        function updateGamepad() {
+        function checkGamepad() {
             const gamepads = navigator.getGamepads();
             if (gamepads[gamepadIndex]) {
-                const gp = gamepads[gamepadIndex];
-                if (gp.buttons[14].pressed) move(-1); 
-                if (gp.buttons[15].pressed) move(1);  
-                if (gp.buttons[0].pressed) rotate(); 
-                if (gp.buttons[13].pressed) drop();   
+                statusText.textContent = "Controller connected: " + gamepads[gamepadIndex].id;
+            } else {
+                statusText.textContent = "No controller detected";
+                gamepadIndex = null;
+            }
+        }
+        
+        function updateGamepad() {
+            if (gamepadIndex !== null) {
+                const gamepads = navigator.getGamepads();
+                if (gamepads[gamepadIndex]) {
+                    const gp = gamepads[gamepadIndex];
+                    if (gp.buttons[14].pressed) move(-1);
+                    if (gp.buttons[15].pressed) move(1);
+                    if (gp.buttons[0].pressed) rotate();
+                    if (gp.buttons[13].pressed) drop();
+                }
             }
             requestAnimationFrame(updateGamepad);
         }
@@ -55,10 +70,17 @@
         
         window.addEventListener("gamepadconnected", (e) => {
             gamepadIndex = e.gamepad.index;
+            statusText.textContent = "Controller connected: " + e.gamepad.id;
             console.log("Gamepad connected:", e.gamepad.id);
             requestAnimationFrame(updateGamepad);
         });
         
+        window.addEventListener("gamepaddisconnected", () => {
+            statusText.textContent = "No controller detected";
+            gamepadIndex = null;
+        });
+        
+        setInterval(checkGamepad, 1000);
         drawBoard();
     </script>
 </body>

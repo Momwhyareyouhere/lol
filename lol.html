@@ -33,10 +33,10 @@
             const gamepads = navigator.getGamepads();
             if (gamepads[gamepadIndex]) {
                 const gp = gamepads[gamepadIndex];
-                if (gp.buttons[14].pressed) move(-1); // Left D-Pad
-                if (gp.buttons[15].pressed) move(1);  // Right D-Pad
-                if (gp.buttons[0].pressed) rotate();  // A Button
-                if (gp.buttons[13].pressed) drop();   // Down D-Pad
+                if (gp.buttons[14].pressed) move(-1); 
+                if (gp.buttons[15].pressed) move(1);  
+                if (gp.buttons[0].pressed) rotate(); 
+                if (gp.buttons[13].pressed) drop();   
             }
             requestAnimationFrame(updateGamepad);
         }
